@@ -15,7 +15,7 @@ League of Legends, abbreviated as LOL, is an online multiplayer teamwork player 
 This analysis uses **Oracle's Elixir** dataset of professional match data for League of Legends in 2025. Included in this file are many statistics from individual matches and each match's individual players from Esport matches throughout 2025. 
 <br>
 <br>
-This dataset captures essentially all of the numerical and recordable data that can be obtained from LOL matches, providing both information about teams as a whole and individual player statistics, which will prove to be very deterministic about what role that player took on in a match. An essential dynamic to MOBA's is the presence of role based performances. Instead of other genres of games where the performance of a player can be quite similar across the board, asides from executing team formations or decisions, LOL's role dynamic leads to each player on a team fulfilling a very defined position. While some roles share similarities, such as Mid Laners and ADC Bot roles eventually scaling their power to be PVP focused, others such as Jungle are encouraged to damage monsters outside of the game's 3 main lanes. At a basic level, there are positions that play more passively than others, differentiating the "carries," those entrusted to lead the team by power, and the supports. However, stats often overlap in importance. All roles have some involvement and expectation to engage in PVP against the enemy team. For this reason, stats like kills, deaths, assists can vary across game to game from player to player. <br>
+This dataset captures essentially all of the numerical and recordable data that can be obtained from LOL matches, providing both information about teams as a whole and individual player statistics, which will prove to be very deterministic about what role that player took on in a match. An essential dynamic to MOBA's is the presence of role based performances. Instead of other genres of games where the performance of a player can be quite similar across the board, asides from executing team formations or decisions, LOL's role dynamic leads to each player on a team fulfilling a very defined position. While some roles share similarities, such as Mid Laners and ADC Bot roles eventually scaling their power to be PVP focused, others such as Jungle are encouraged to damage monsters outside of the game's 3 main lanes. At a basic level, there are positions that play more passively than others, differentiating the "carries," those entrusted to lead the team by power, and the supports. However, stats often overlap in importance. All roles have some involvement and expectation to engage in PVP against the enemy team. For this reason, stats like `kills`, deaths, assists can vary across game to game from player to player. <br>
 <br>
 For this analysis, the central question I am interested in is <b>Just how defined are the positions in League of Legends by stats?</b> To explore this question, I isolate many crucial statistics that define a player's performance as well as differentiate them from others. Exploring this question requires us to understand the patterns in individual stats and their correlations to others. In the conclusion of this analysis, I construct a predictive model that attempts to classify a player's position by just their match statistics. The performance of this Prediction Model may or may not support the idea that there actually are correlations between positions and statistics.
 <br>
@@ -47,7 +47,7 @@ This dataset captures essentially every numerical and some categorical metrics o
 * `assists`: This column quantifies how many times a player dealt damage to another champion only for that champion to get defeated by someone else. This recognizes inherently the number of engagements where this player contributed to the defeat of an enemy player
 <br>
 <br>
-* `teamkills`: This column quantifies how many total kills a team got in a match. This indicator captures the team’s kill count as a whole
+* `teamkills`: This column quantifies how many total `kills` a team got in a match. This indicator captures the team’s kill count as a whole
 <br>
 <br>
 * `damageshare`: This column represents a proportion of total damage to enemy champions that a player dealt on their team. In other words, each value represents the individual player’s damage to enemies divided by the team’s overall damage to the enemy team.
@@ -62,7 +62,7 @@ This dataset captures essentially every numerical and some categorical metrics o
 * `minionkills`: This column quantifies how many minions a player defeats. In LOL, a minion is a bot like character that is automated by the game to approach towers down the lanes of the battlefield. Minions of the enemy team are able to be defeated to let your own minions advance. This metric specifically captures a player’s involvement in defeating minions, and can be indicative of where in the map these players are positioned. 
 <br>
 <br>
-* `monsterkills`: This is the number of monsters that a player defeats throughout a game. Similar to minions, monsters are automatically spawning and computer controlled characters that spawn on the map in the jungles for example. Monsters range from small camps to larger ones such as Baron Nashor or the Dragon. Monsters are considered neutral objectives, because technically they are outside of the main objective which is lane control. Therefore, monster kills can help indicate a player’s contribution to controlling the map outside of the main lanes. 
+* `monsterkills`: This is the number of monsters that a player defeats throughout a game. Similar to minions, monsters are automatically spawning and computer controlled characters that spawn on the map in the jungles for example. Monsters range from small camps to larger ones such as Baron Nashor or the Dragon. Monsters are considered neutral objectives, because technically they are outside of the main objective which is lane control. Therefore, monster `kills` can help indicate a player’s contribution to controlling the map outside of the main lanes. 
 <br>
 <br>
 * `damagetochampions`: This statistic is specific to each player and quantifies how much flat damage they have dealt to enemy champions. This can be considered the raw form of damageshare, where this instead describes the total damage a player has dealt to other players, which can be indicative of their role’s contribution to damaging enemy champions.
@@ -105,7 +105,7 @@ Below is the head of the filtered dataframe.
 
 ### Univariate Analysis
 <br>
-I performed univariate analysis first on individual player’s ‘kills’ in each match by plotting a histogram.
+I performed univariate analysis first on individual player’s `kills` in each match by plotting a histogram.
 <br>
 
 <iframe
@@ -115,7 +115,7 @@ I performed univariate analysis first on individual player’s ‘kills’ in ea
  frameborder = "0"
 ></iframe>
 
-The graph is unimodal but exhibits a heavy right skew, a possible indication that kills are not evenly spread out across players. With a high frequency for low amounts of kills may indicate that there is likely an underlying reason why kills tend to be low, but not much more can be said with this observation alone.
+The graph is unimodal but exhibits a heavy right skew, a possible indication that `kills` are not evenly spread out across players. With a high frequency for low amounts of kills may indicate that there is likely an underlying reason why kills tend to be low, but not much more can be said with this observation alone.
 <br>
 <br>
 Next, I performed a similar univariate analysis on Player’s DPM across all games by plotting the observed values on a histogram. 
@@ -134,7 +134,7 @@ Here, the distribution of dpm is more normal, but still skewed right. The closer
 
 ### Bivariate Analysis
 <br>
-I used a bivariate analysis scatterplot to visualize the relationship between ‘kills’ and ‘damage per minute.’ By knowing that DPM is a metric about only damage to enemy champions, we can suspect there is a positive correlation
+I used a bivariate analysis scatterplot to visualize the relationship between `kills` and ‘damage per minute.’ By knowing that DPM is a metric about only damage to enemy champions, we can suspect there is a positive correlation
 <br>
 
 <iframe
@@ -147,7 +147,7 @@ I used a bivariate analysis scatterplot to visualize the relationship between �
 As expected, this graph demonstrates a rather strong correlation between these two statistics - that players with a high amount of kills had a high damage per minute. Some players who had high kills had low DPM, which in context might mean they made a lot of the final hits on enemies or committed only to fights they could win - these are just some of many possible reasons a player can get a lower DPM but high amount of kills
 <br>
 <br>
-I performed bivariate analysis on the amount of player kills and monster kills using a scatter plot.
+I performed bivariate analysis on the amount of player `kills` and monster kills using a scatter plot.
 <br>
 
 <iframe
@@ -175,7 +175,7 @@ A common way to observe the statistics of players is by aggregating every player
 
 <br>
 <br>
-By taking the sum of all stats across every position using a groupby() followed by a sum aggregation function, we can see some significant differences in the overall stats of each position. One for example, is that the ‘support’ position has a significantly lower amount of kills compared to every other position, but a significantly higher amount of assists. Support also has a staggeringly low amount of monster kills, less than 6000 when the jungle position has nearly 3.6 million!
+By taking the sum of all stats across every position using a groupby() followed by a sum aggregation function, we can see some significant differences in the overall stats of each position. One for example, is that the ‘support’ position has a significantly lower amount of kills compared to every other position, but a significantly higher amount of assists. Support also has a staggeringly low amount of monster `kills`, less than 6000 when the jungle position has nearly 3.6 million!
 <br>
 <br>
 The many observations to be made from this table make it likely evidence that positions do have a significantly different playstyles, and thus stats, from each other.
@@ -281,7 +281,7 @@ Because the p-value of the observed statistic is > 0.05, we fail to reject the n
  
 ## Hypothesis Testing
 
-An important part of analyzing datasets for patterns is the ability to conduct hypothesis tests to validate claims about the data. For this section of the analysis, I will conduct a Hypothesis Test on an aggregate statistic - kill death assist ratio (KDA). KDA is a metric calculated by looking at a player’s specific (kills + assists) / deaths in a match. KDA is an important metric because it represents an individual player’s involvement in PVP combat in a specific match. This is especially important because League is a team based game where one’s combat performance against the other team’s players is a critical aspect to ensuring victory. 
+An important part of analyzing datasets for patterns is the ability to conduct hypothesis tests to validate claims about the data. For this section of the analysis, I will conduct a Hypothesis Test on an aggregate statistic - kill death assist ratio (KDA). KDA is a metric calculated by looking at a player’s specific (`kills` + assists) / deaths in a match. KDA is an important metric because it represents an individual player’s involvement in PVP combat in a specific match. This is especially important because League is a team based game where one’s combat performance against the other team’s players is a critical aspect to ensuring victory. 
 <br>
 <br>
 You may wonder why this metric has deaths as its denominator. That is because deaths very punishingly sets a player back a great deal of time, as respawning has a long delay. Deaths hold back players from progressing, making it an important task for players to defeat other players. Setting enemies back time can place them at a great disadvantage in a game where it’s a constant race to scale your champion’s power.
@@ -357,7 +357,7 @@ When constructing prediction models on datasets like this, it is important to ad
 
 ## Baseline Model 
 
-For my baseline model, I decided to use a DecisionTreeClassifier on the following features: kills, deaths, assists, teamkills, firstblood, firstbloodkill, dpm, damagetowers, totalgold, minionkills, monsterkills, and damagetochampions. 
+For my baseline model, I decided to use a DecisionTreeClassifier on the following features: `kills`, `deaths`, `assists`, `teamkills`, `firstblood`, `firstbloodkill`, `dpm`, `damagetowers`, `totalgold`, `minionkills`, `monsterkills`, and `damagetochampions`. 
 <br>
 <br>
 Below is the filtered DataFrame of just the feature columns that I used for prediction. The position column was saved as a separate series as it was the target column to predict.
@@ -372,21 +372,21 @@ Below is the filtered DataFrame of just the feature columns that I used for pred
 
 <br>
 
-At this stage of the modeling process, it is important to identify the quantitative and qualitative features. For this specific subset of columns, all but one feature are quantitative. firstbloodkill is a nominal categorical feature, but the dataset already converted this feature with one-hot encoding, making its values either 1 or 0. Therefore, no further encoding on this column is necessary. All quantitative features have an inherent ordinal nature to them, because each numerical value’s size is correlated to greater importance. For example, 15 in the kills column has more importance or ranking than a value of 5. Likewise, 15 deaths is numerically greater than 5 deaths.
+At this stage of the modeling process, it is important to identify the quantitative and qualitative features. For this specific subset of columns, all but one feature are quantitative. firstbloodkill is a nominal categorical feature, but the dataset already converted this feature with one-hot encoding, making its values either 1 or 0. Therefore, no further encoding on this column is necessary. All quantitative features have an inherent ordinal nature to them, because each numerical value’s size is correlated to greater importance. For example, 15 in the `kills` column has more importance or ranking than a value of 5. Likewise, 15 deaths is numerically greater than 5 deaths.
 <br>
 <br>
-For this baseline model, I applied a StandardScaler on the kills, assists, and deaths column because each of these statistics range in values depending on other columns (that are not part of these hand-picked features), such as match length. Longer matches naturally allow more time for these particular columns to accumulate larger values, so standardizing felt necessary in order to normalize the scale of these features. 
+For this baseline model, I applied a StandardScaler on the `kills`, `assists`, and `deaths` column because each of these statistics range in values depending on other columns (that are not part of these hand-picked features), such as match length. Longer matches naturally allow more time for these particular columns to accumulate larger values, so standardizing felt necessary in order to normalize the scale of these features. 
 <br>
 <br>
-After fitting this pipeline to the training data, it returns an accuracy score of 68.474% on the training data and 68.456% on the test data. This small dip in accuracy is always expected because the model does not train on the test data. To further analyze this baseline model, I examined the F1-Score of each individual class because of this problem’s multiclass nature. When comparing the predictions of the test data with the actual test classes. When checking the F1-Scores of the baseline model, in the order of ‘bot’, ‘jng’, ‘mid’, ‘sup’, ‘top’, the scores are 0.52, 1.0, 0.43, 1.0, 0.47.
+After fitting this pipeline to the training data, it returns an accuracy score of 68.474% on the training data and 68.456% on the test data. This small dip in accuracy is always expected because the model does not train on the test data. To further analyze this baseline model, I examined the F1-Score of each individual class because of this problem’s multiclass nature. When comparing the predictions of the test data with the actual test classes. When checking the F1-Scores of the baseline model, in the order of `bot`, `jng`, `mid`, `sup`, `top`, the scores are 0.52, 1.0, 0.43, 1.0, 0.47.
 <br>
 <br>
-From these initial scores, it is possible to say the model is “passable.” It accurately predicts greater than 50% of the time, but the F1-scores tell us the model struggles most differentiating the ‘bot’, ‘mid’, and ‘top’ positions. Meanwhile, it has maximum F1-score for ‘jng’ and ‘sup.’ What stands out the most from this current model is that the training accuracy is 68.474%, when Decision Trees often overfit. In tandem with a low test accuracy, I am led to believe that this baseline model is actually underfitting the data. Therefore, there is some room for improvement
+From these initial scores, it is possible to say the model is “passable.” It accurately predicts greater than 50% of the time, but the F1-scores tell us the model struggles most differentiating the `bot`, `mid`, and `top` positions. Meanwhile, it has maximum F1-score for `jng` and `sup`. What stands out the most from this current model is that the training accuracy is 68.474%, when Decision Trees often overfit. In tandem with a low test accuracy, I am led to believe that this baseline model is actually underfitting the data. Therefore, there is some room for improvement
 
 ---
 
 ## Final Model
-To attempt to improve the accuracy of the model, I next encoded the minionkills and monsterkills feature with a StandardScaler on top of the original kills, deaths, and assists, features. I did this because, just like kills, deaths, and assists, the values of minionkills and monsterskills may vary depending on factors like the length of the game. Standardizing these features would likely place them on an easier scale for readability. Additionally, I also encoded damagetochampions and damagetotowers with a QuantileTransformer, because these features ranged in the thousands between player to player. Instead of having these large differences, encoding each value to instead be on a Distribution’s CDF, much like standardizing, would change their units to be much smaller and instead now relative to each other. 
+To attempt to improve the accuracy of the model, I next encoded the `minionkills` and `monsterkills` feature with a StandardScaler on top of the original `kills`, `deaths`, and `assists`, features. I did this because, just like `kills`, `deaths`, and `assists`, the values of `minionkills` and `monsterskills` may vary depending on factors like the length of the game. Standardizing these features would likely place them on an easier scale for readability. Additionally, I also encoded damagetochampions and damagetotowers with a QuantileTransformer, because these features ranged in the thousands between player to player. Instead of having these large differences, encoding each value to instead be on a Distribution’s CDF, much like standardizing, would change their units to be much smaller and instead now relative to each other. 
 <br>
 <br>
 Using a QuantileTransformer would remove a great deal of the variability in the two damage columns with a non-linear transformation. These features would now be placed on a much more relative scale between its values, whereas before they would be vastly different.
@@ -395,7 +395,7 @@ Using a QuantileTransformer would remove a great deal of the variability in the 
 For this improved model, I chose to train a RandomForestClassifier, searching for the best hyperparameters with GridSearchCV.  Using a Grid Search, I trained models with a max_depth from 0 to 200 at increments of 10 as well as n_estimators from 100 to 200 at increments of 30. From this search, the best parameters identified were max_depth = 160 and n_estimators = 190. In other words, 190 decision trees with a depth of 160 each - was found to be the best parameters.
 <br>
 <br>
-Evaluating this model now, it yielded an accuracy of 100% (1.0) on the training data, and an accuracy of 74.206% (0.742069) on the test data. Looking at the individual F1-Scores, the model now scored 0.6, 1.0, 0.47, 1.0, 0.63. Thus, this new model had about a 6% increase in accuracy over the baseline on the test data. The 100% accuracy on the training data is a positive sign as well, because we expect having that many decision trees in a Random Forest to overfit the data. The F1-scores for ‘bot’, ‘mid’, and ‘top’ positions also improved, which is a positive sign, although still rather low. 
+Evaluating this model now, it yielded an accuracy of 100% (1.0) on the training data, and an accuracy of 74.206% (0.742069) on the test data. Looking at the individual F1-Scores, the model now scored 0.6, 1.0, 0.47, 1.0, 0.63. Thus, this new model had about a 6% increase in accuracy over the baseline on the test data. The 100% accuracy on the training data is a positive sign as well, because we expect having that many decision trees in a Random Forest to overfit the data. The F1-scores for `bot`, `mid`, and `top` positions also improved, which is a positive sign, although still rather low. 
 <br>
 <br>
 Something I recognized about this model is that the ‘best’ chosen n_estimators hyperparameter was the largest value I allowed it to be. 100 to 200 with increments of 30 has a max value of 190, which is what the Grid Search concluded as the best parameter. What this means, given the still low F1-Scores, is that the model could likely improve by increasing the number of estimators - even more. On the other hand, the depth of each estimator was much less than the provided maximum it could have been, so this is a good sign that 160 is the sweet spot for this dataset. 
