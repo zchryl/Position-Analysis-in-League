@@ -91,8 +91,6 @@ Some of these columns, such as ‘firstblood’ contained NaN values, but these 
 <br>
 <br>
 Below is the head of the filtered dataframe.
-<br>
-<br>
 
 | gameid           | league   | side   | position   |   kills |   deaths |   assists |   teamkills |   damageshare |   damagetotowers |   totalgold |   minionkills |   monsterkills | damagetochampions |     dpm |   firstblood |   firstbloodkill |
 |:-----------------|:---------|:-------|:-----------|--------:|---------:|----------:|------------:|--------------:|-----------------:|------------:|--------------:|---------------:|--------------------:|--------:|-------------:|-----------------:|
@@ -101,6 +99,7 @@ Below is the head of the filtered dataframe.
 | LOLTMNT03_179647 | LFL2     | Blue   | mid        |       1 |        2 |         0 |           3 |     0.278244  |                0 |        9032 |           209 |              0 |               13952 | 525.829 |            0 |                0 |
 | LOLTMNT03_179647 | LFL2     | Blue   | bot        |       1 |        3 |         1 |           3 |     0.137567  |              333 |        9407 |           239 |             12 |                6898 | 259.975 |            0 |                0 |
 | LOLTMNT03_179647 | LFL2     | Blue   | sup        |       0 |        3 |         2 |           3 |     0.0832419 |                0 |        5719 |            38 |              0 |                4174 | 157.312 |            0 |                0 |
+
 <br>
 <br>
 Univariate Analysis
@@ -136,6 +135,15 @@ Aggregate Statistics
 <br>
 <br>
 A common way to observe the statistics of players is by aggregating every player’s stats when they played a specific position. Below is a table representing the aggregation of stats based on what position the player played.
+
+|   kills |   deaths |   assists |   firstblood |   firstbloodkill |         dpm |   damagetotowers |   totalgold |      minionkills |     monsterkills |   damagetochampions |
+|--------:|---------:|----------:|-------------:|-----------------:|------------:|-----------------:|------------:|-----------------:|-----------------:|--------------------:|
+|   97705 |    54732 |    120992 |         4452 |             2630 | 1.48155e+07 |      8.74836e+07 | 2.79558e+08 |      5.52484e+06 | 225535           |         4.82951e+08 |
+|   67705 |    67122 |    160623 |         5955 |             2927 | 9.16001e+06 |      3.70793e+07 | 2.32486e+08 | 438220           |      3.57988e+06 |         2.94619e+08 |
+|   78176 |    59482 |    133398 |         3540 |             1829 | 1.40537e+07 |      7.27695e+07 | 2.60549e+08 |      5.18706e+06 | 118977           |         4.54773e+08 |
+|   17448 |    77737 |    218467 |         5412 |              951 | 4.35147e+06 |      1.51483e+07 | 1.59417e+08 | 641919           |   5825           |         1.38745e+08 |
+|   62012 |    64725 |    111483 |         2630 |             1573 | 1.22767e+07 |      8.4055e+07  | 2.46019e+08 |      4.77908e+06 | 105932           |         3.95402e+08 |
+
 <br>
 <br>
 By taking the sum of all stats across every position using a groupby() followed by a sum aggregation function, we can see some significant differences in the overall stats of each position. One for example, is that the ‘support’ position has a significantly lower amount of kills compared to every other position, but a significantly higher amount of assists. Support also has a staggeringly low amount of monster kills, less than 6000 when the jungle position has nearly 3.6 million!
