@@ -123,7 +123,7 @@ Next, I performed a similar univariate analysis on Player’s DPM across all gam
 <iframe
  src = "assets/univariate_kills.html"
  width = "800"
- height = "600"
+ height = "300"
  frameborder = "0"
 ></iframe>
 Here, the distribution of dpm is more normal, but still skewed right. The closer appearance to normality does indicate that, while players tend to get less kills, their DPM is more evenly distributed across the board. This leads me to speculate: while players tend to get less kills in their matches, they still contribute evenly to engagements with enemy champions. 
