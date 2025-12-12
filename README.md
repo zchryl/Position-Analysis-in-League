@@ -107,6 +107,7 @@ Univariate Analysis
 <br>
 I performed univariate analysis first on individual player’s ‘kills’ in each match by plotting a histogram.
 <br>
+
 <div style = text-align:center;">
 <iframe
  src = "assets/univariate_kills.html"
@@ -115,11 +116,13 @@ I performed univariate analysis first on individual player’s ‘kills’ in ea
  frameborder = "0"
 ></iframe>
 </div>
+
 The graph is unimodal but exhibits a heavy right skew, a possible indication that kills are not evenly spread out across players. With a high frequency for low amounts of kills may indicate that there is likely an underlying reason why kills tend to be low, but not much more can be said with this observation alone.
 <br>
 <br>
 Next, I performed a similar univariate analysis on Player’s DPM across all games by plotting the observed values on a histogram. 
 <br>
+
 <div style = text-align:center;">
 <iframe
  src = "assets/univariate_dpm.html"
@@ -128,6 +131,7 @@ Next, I performed a similar univariate analysis on Player’s DPM across all gam
  frameborder = "0" 
 ></iframe>
 </div>
+
 Here, the distribution of dpm is more normal, but still skewed right. The closer appearance to normality does indicate that, while players tend to get less kills, their DPM is more evenly distributed across the board. This leads me to speculate: while players tend to get less kills in their matches, they still contribute evenly to engagements with enemy champions. 
 <br>
 <br>
@@ -137,24 +141,30 @@ Bivariate Analysis
 I used a bivariate analysis scatterplot to visualize the relationship between ‘kills’ and ‘damage per minute.’ By knowing that DPM is a metric about only damage to enemy champions, we can suspect there is a positive correlation
 <br>
 
+<div style = text-align:center;">
 <iframe
- src = "assets/univariate_kills.html"
+ src = "assets/univariate_dpm.html"
  width = "800"
- height = "600"
- frameborder = "0"
+ height = "450"
+ frameborder = "0" 
 ></iframe>
+</div>
+
 As expected, this graph demonstrates a rather strong correlation between these two statistics - that players with a high amount of kills had a high damage per minute. Some players who had high kills had low DPM, which in context might mean they made a lot of the final hits on enemies or committed only to fights they could win - these are just some of many possible reasons a player can get a lower DPM but high amount of kills
 <br>
 <br>
 I performed bivariate analysis on the amount of player kills and monster kills using a scatter plot.
 <br>
 
+<div style = text-align:center;">
 <iframe
- src = "assets/univariate_kills.html"
+ src = "assets/univariate_dpm.html"
  width = "800"
- height = "600"
- frameborder = "0"
+ height = "450"
+ frameborder = "0" 
 ></iframe>
+</div>
+
 From this graph, I found it interesting there existed two almost separate clusters of points. As seen above, a large cluster of points have less than 50 monster kills while having some of the most player kills, meanwhile many had monster kills above 100 but much less player kills than the prior cluster. This could indicate that monster kills and player kills are distinctive stats depending on the player, and perhaps role is an underlying reason why these clusters might exist.
 <br>
 <br>
@@ -223,12 +233,15 @@ Below is the observed distribution of position when cells in ‘damageshare’ a
 After calculating the TVD between these two distributions, we get an observed TVD of 1.0. After conducting permutation tests in which missing cells were randomized based on position, under the null that the distribution of the missing values IS NOT related to role, and plotting the histogram of the test TVDs, the observed p-value is 0. Below is the empirical distribution of the generated test TVDs under the null.
 <br>
 
+<div style = text-align:center;">
 <iframe
- src = "assets/univariate_kills.html"
+ src = "assets/univariate_dpm.html"
  width = "800"
- height = "600"
- frameborder = "0"
+ height = "450"
+ frameborder = "0" 
 ></iframe>
+</div>
+
 because the p-value is less than the 0.05 significance level, I reject the null hypothesis and favor the alternative. In other words, because the distribution of position when damageshare IS missing IS different from the distribution of position when damageshare IS NOT missing, the missingness in the ‘damageshare’ column depends on the ‘position’ column. 
 <br>
 <br>
@@ -264,12 +277,15 @@ Below are the two distributions of values in ‘teamname’ when ‘damageshare�
 After producing 3000 test statistics of permutations, the observed tvd of 0.0 has a p-value of 1.0, meaning that all test TVDs were actually greater than the actual TVD! Below is the distribution of the test TVDs compared to the observed TVD.
 <br>
 
+<div style = text-align:center;">
 <iframe
- src = "assets/univariate_kills.html"
+ src = "assets/univariate_dpm.html"
  width = "800"
- height = "600"
- frameborder = "0"
+ height = "450"
+ frameborder = "0" 
 ></iframe>
+</div>
+
 Because the p-value of the observed statistic is > 0.05, we fail to reject the null hypothesis: that the distributions of ‘teamname’ when ‘damageshare’ is missing is the same as when ‘damageshare’ is not missing. This is strong evidence to conclude that the missing values of ‘damageshare’ are not dependent on the teamname column.
 
 ---
