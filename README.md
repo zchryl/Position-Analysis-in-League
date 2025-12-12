@@ -179,7 +179,7 @@ The many observations to be made from this table make it likely evidence that po
 
 ## Assessment of Missingness
 ### NMAR Analysis
-The most likely NMAR columns in the original dataset are the ban1, ban2, ban3, ban4, and ban5. A ban is a team's decision to "ban", or prevent a specific champion from being played that game, and is a strategic decision that changes the dynamic of team compositions. In the dataset, it seems very random whenever missing values appear in any of these 5 ban columns. Bans are not tied to any other specific column, because they are an independent decision made by the whole team. There seem to be no other columns that could describe why a whole team decides *not* to ban a character in each ban phase. Contextually, this missingness can reflect the decision to *not* ban a character, which is just as strategic as it is *to* ban a character. This missingness could reflect the team's decision to play risky or unusual - to provoke their competitors, create unpredictability, or mix up their approach to changing the dynamic of the game. Banning a champion reduces the possibilities of team compositions - the possible pairings of champions that could appear. NOT banning a champion retains a greater amount of possible pairings, which could add pressure to the decision making process of which champions to use. Because it seems these columns are not affected by any others, as well as how independent ban decisions are in the context of professional games, I believe these columns’ missingness is NMAR, and dependent solely on the columns themselves.
+The most likely NMAR columns in the original dataset are the `ban1`, `ban2`, `ban3`, `ban4`, and `ban5`. A ban is a team's decision to "ban", or prevent a specific champion from being played that game, and is a strategic decision that changes the dynamic of team compositions. In the dataset, it seems very random whenever missing values appear in any of these 5 ban columns. Bans are not tied to any other specific column, because they are an independent decision made by the whole team. There seem to be no other columns that could describe why a whole team decides *not* to ban a character in each ban phase. Contextually, this missingness can reflect the decision to *not* ban a character, which is just as strategic as it is *to* ban a character. This missingness could reflect the team's decision to play risky or unusual - to provoke their competitors, create unpredictability, or mix up their approach to changing the dynamic of the game. Banning a champion reduces the possibilities of team compositions - the possible pairings of champions that could appear. NOT banning a champion retains a greater amount of possible pairings, which could add pressure to the decision making process of which champions to use. Because it seems these columns are not affected by any others, as well as how independent ban decisions are in the context of professional games, I believe these columns’ missingness is NMAR, and dependent solely on the columns themselves.
 <br>
 <br>
 
@@ -190,19 +190,19 @@ While the missing values of a column can be explained entirely by the column the
 For both of these tests, I chose to conduct a permutation test with a significance level of 0.05 using the TVD as the test statistic, which measures the difference between two distributions of proportions. 
 <br>
 <br>
-For the first comparison, we look at the columns of ‘position’ and ‘damageshare’
+For the first comparison, we look at the columns of `position` and `damageshare`
 <br>
 <br>
-**Null Hypothesis:** The distribution of position when damageshare is missing is the same as the distribution of position when damageshare is not missing
+**Null Hypothesis:** The distribution of position when `damageshare` is missing is the same as the distribution of position when `damageshare` is not missing
 <br>
 <br>
-**Alternative Hypothesis:** the distribution of position when damageshare is missing is NOT the same as the distribution of position when damageshare is not missing
+**Alternative Hypothesis:** the distribution of position when `damageshare` is missing is **NOT** the same as the distribution of position when `damageshare` is not missing
 <br>
 <br>
-**Test Statistic:** TVD between distribution of position when damageshare is missing and not missing
+**Test Statistic:** TVD between distribution of position when `damageshare` is missing and not missing
 <br>
 <br>
-Below is the observed distribution of position when cells in ‘damageshare’ are and are not missing
+Below is the observed distribution of `position` when cells in `damageshare` are and are not missing
 
 |      |   dmgs_missing = True |   dmgs_missing = False |
 |:-----|----------------------:|-----------------------:|
@@ -214,7 +214,7 @@ Below is the observed distribution of position when cells in ‘damageshare’ a
 | team |                   0   |                      1 |
 
 <br>
-After calculating the TVD between these two distributions, we get an observed TVD of 1.0. After conducting permutation tests in which missing cells were randomized based on position, under the null that the distribution of the missing values IS NOT related to role, and plotting the histogram of the test TVDs, the observed p-value is 0. Below is the empirical distribution of the generated test TVDs under the null.
+After calculating the TVD between these two distributions, we get an observed TVD of 1.0. After conducting permutation tests in which missing cells were randomized based on position, under the null that the distribution of the missing values IS NOT related to role, and plotting the histogram of the test TVDs, the observed **p-value** is 0. Below is the empirical distribution of the generated test TVDs under the null.
 <br>
 
 <iframe
@@ -224,22 +224,22 @@ After calculating the TVD between these two distributions, we get an observed TV
  frameborder = "0" 
 ></iframe>
 
-because the p-value is less than the 0.05 significance level, I reject the null hypothesis and favor the alternative. In other words, because the distribution of position when damageshare IS missing IS different from the distribution of position when damageshare IS NOT missing, the missingness in the ‘damageshare’ column depends on the ‘position’ column. 
+Because the **p-value** is less than the 0.05 significance level, I reject the null hypothesis and favor the alternative. In other words, because the distribution of position when damageshare IS missing IS different from the distribution of position when damageshare IS NOT missing, the missingness in the `damageshare` column depends on the `position’\` column. 
 <br>
 <br>
-The second permutation test I performed is on the ‘damageshare’ and ‘teamname’ column. From this test, it will be revealed that the missingness in ‘damageshare’ is not dependent on the ‘teamname’ column.
+The second permutation test I performed is on the `damageshare` and `teamname` column. From this test, it will be revealed that the missingness in `damageshare` is not dependent on the `teamname` column.
  <br>
 <br>
-**Null Hypothesis:** The distribution of ‘teamname’ when ‘damageshare’ is missing is the same as the distribution of ‘teamname’ when ‘damageshare’ is not missing
+**Null Hypothesis:** The distribution of `teamname` when `damageshare` is missing is the same as the distribution of `teamname` when `damageshare` is not missing
 <br>
 <br>
-**Alternative Hypothesis:** The distribution of ‘teamname’ when ‘damageshare’ is missing is NOT the same as the distribution of ‘teamname’ when ‘damageshare’ is not missing
+**Alternative Hypothesis:** The distribution of `teamname` when `damageshare` is missing is NOT the same as the distribution of `teamname` when `damageshare` is not missing
 <br>
 <br>
-**Test Statistic:** TVD between distribution of teamname when damageshare is missing and not missing
+**Test Statistic:** TVD between distribution of teamname when `damageshare` is missing and not missing
 <br>
 <br>
-Below are the two distributions of values in ‘teamname’ when ‘damageshare’ is missing. To reduce clutter, only the first 10 team names are shown. 
+Below are the two distributions of values in `teamname` when `damageshare` is missing. To reduce clutter, only the first 10 team names are shown. 
 
 |                         |   dmgs_missing = True |   dmgs_missing = False |
 |:------------------------|----------------------:|-----------------------:|
@@ -256,7 +256,7 @@ Below are the two distributions of values in ‘teamname’ when ‘damageshare�
 
 <br>
 
-After producing 3000 test statistics of permutations, the observed tvd of 0.0 has a p-value of 1.0, meaning that all test TVDs were actually greater than the actual TVD! Below is the distribution of the test TVDs compared to the observed TVD.
+After producing 3000 test statistics of permutations, the observed tvd of 0.0 has a **p-value** of 1.0, meaning that all test TVDs were actually greater than the actual TVD! Below is the distribution of the test TVDs compared to the observed TVD.
 <br>
 
 <iframe
@@ -266,7 +266,7 @@ After producing 3000 test statistics of permutations, the observed tvd of 0.0 ha
  frameborder = "0" 
 ></iframe>
 
-Because the p-value of the observed statistic is > 0.05, we fail to reject the null hypothesis: that the distributions of ‘teamname’ when ‘damageshare’ is missing is the same as when ‘damageshare’ is not missing. This is strong evidence to conclude that the missing values of ‘damageshare’ are not dependent on the teamname column.
+Because the **p-value** of the observed statistic is > 0.05, we fail to reject the null hypothesis: that the distributions of `teamname` when `damageshare` is missing is the same as when `damageshare` is not missing. This is strong evidence to conclude that the missing values of `damageshare` are not dependent on the teamname column.
 
 ---
  
@@ -319,7 +319,7 @@ Below is the plot for the empirical distribution of test statistics:
  frameborder = "0" 
 ></iframe>
 
-With my observed value having a p-value of 0.0514, which is < 0.05, fail to reject the Null Hypothesis 
+With my observed value having a **p-value** of 0.0514, which is < 0.05, fail to reject the Null Hypothesis 
 <br>
 <br>
 While I took samples of the 50/50 with the size equivalent to the number of times that Mid and Bot positions carried their team’s KDA. I took 100,000 of these samples, so by the Law of Large Numbers, the empirical distribution would more accurately represent the true distribution of proportion differences.
@@ -331,7 +331,7 @@ For clarity, I approached this hypothesis as: given the Bot position and Mid pos
 Looking at just this subsample of either Mid or Bot positions carrying, under the null, the amount of times these two groups appeared total would remain constant. Under the null hypothesis however, these two groups would appear, or carry, the same proportion of times, so an equal 0.5 split between both groups. 
 <br>
 <br>
-The p-value of this hypothesis test heavily depended on the number of test statistics calculated, so leaning on the more extreme amount would better represent the true distribution under the null. From these findings, I am inclined to believe that both Bot and Mid positions carry their teams by KDA - the same proportion of times. We can only be inclined to believe, and cannot absolutely conclude this.  
+The **p-value** of this hypothesis test heavily depended on the number of test statistics calculated, so leaning on the more extreme amount would better represent the true distribution under the null. From these findings, I am inclined to believe that both Bot and Mid positions carry their teams by KDA - the same proportion of times. We can only be inclined to believe, and cannot absolutely conclude this.  
 
 ---
 
@@ -420,4 +420,4 @@ The Hypotheses for this test are:
  frameborder = "0" 
 ></iframe>
 
-From the permutation test, the observed value has a p-value of 0.265, which is much greater than the significance level of 0.05. Thus, I fail to reject the null hypothesis and am inclined to believe that this model does not perform more accurately for players with greater than 10 kills. Maybe kills are not as important of a metric after all! Failing to reject the null in this test is a good sign because that indicates the model is fair regarding groups derived from the kills feature. Further tests can be conducted to identify if this model is fair in the other feature categories.
+From the permutation test, the observed value has a **p-value** of 0.265, which is much greater than the significance level of 0.05. Thus, I fail to reject the null hypothesis and am inclined to believe that this model does not perform more accurately for players with greater than 10 kills. Maybe kills are not as important of a metric after all! Failing to reject the null in this test is a good sign because that indicates the model is fair regarding groups derived from the kills feature. Further tests can be conducted to identify if this model is fair in the other feature categories.
