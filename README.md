@@ -102,7 +102,8 @@ Below is the head of the filtered dataframe.
 
 <br>
 <br>
-Univariate Analysis
+
+### Univariate Analysis
 <br>
 <br>
 I performed univariate analysis first on individual player’s ‘kills’ in each match by plotting a histogram.
@@ -131,7 +132,9 @@ Next, I performed a similar univariate analysis on Player’s DPM across all gam
 Here, the distribution of dpm is more normal, but still skewed right. The closer appearance to normality does indicate that, while players tend to get less kills, their DPM is more evenly distributed across the board. This leads me to speculate: while players tend to get less kills in their matches, they still contribute evenly to engagements with enemy champions. 
 <br>
 <br>
-Bivariate Analysis
+
+### Bivariate Analysis
+
 <br>
 <br>
 I used a bivariate analysis scatterplot to visualize the relationship between ‘kills’ and ‘damage per minute.’ By knowing that DPM is a metric about only damage to enemy champions, we can suspect there is a positive correlation
@@ -161,7 +164,7 @@ From this graph, I found it interesting there existed two almost separate cluste
 <br>
 <br>
 
-Aggregate Statistics
+### Aggregate Statistics
 <br>
 <br>
 A common way to observe the statistics of players is by aggregating every player’s stats when they played a specific position. Below is a table representing the aggregation of stats based on what position the player played.
@@ -189,7 +192,8 @@ NMAR Analysis
 The most likely NMAR columns in the original dataset are the ban1, ban2, ban3, ban4, and ban5. A ban is a team's decision to "ban", or prevent a specific champion from being played that game, and is a strategic decision that changes the dynamic of team compositions. In the dataset, it seems very random whenever missing values appear in any of these 5 ban columns. Bans are not tied to any other specific column, because they are an independent decision made by the whole team. There seem to be no other columns that could describe why a whole team decides *not* to ban a character in each ban phase. Contextually, this missingness can reflect the decision to *not* ban a character, which is just as strategic as it is *to* ban a character. This missingness could reflect the team's decision to play risky or unusual - to provoke their competitors, create unpredictability, or mix up their approach to changing the dynamic of the game. Banning a champion reduces the possibilities of team compositions - the possible pairings of champions that could appear. NOT banning a champion retains a greater amount of possible pairings, which could add pressure to the decision making process of which champions to use. Because it seems these columns are not affected by any others, as well as how independent ban decisions are in the context of professional games, I believe these columns’ missingness is NMAR, and dependent solely on the columns themselves.
 <br>
 <br>
-Missingness Dependency
+
+### Missingness Dependency
 <br>
 <br>
 While the missing values of a column can be explained entirely by the column themselves - the definition of “Not Missing At Random” - the missingness of a column(s) can also be explained by other columns. To demonstrate this, I explored the missingness of the ‘damageshare’ column. The two other columns we will compare to ‘damageshare’ are ‘position’ and ‘teamname.’ From the way this dataset was designed, it is not explicitly stated that ‘damageshare’ values only accompany in-game ‘positions,’ but it is evident that the missingness of ‘damageshare’ can be explained by the values in ‘position’
