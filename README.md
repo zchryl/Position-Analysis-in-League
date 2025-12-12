@@ -136,13 +136,13 @@ Aggregate Statistics
 <br>
 A common way to observe the statistics of players is by aggregating every player’s stats when they played a specific position. Below is a table representing the aggregation of stats based on what position the player played.
 
-|   kills |   deaths |   assists |   firstblood |   firstbloodkill |         dpm |   damagetotowers |   totalgold |      minionkills |     monsterkills |   damagetochampions |
-|--------:|---------:|----------:|-------------:|-----------------:|------------:|-----------------:|------------:|-----------------:|-----------------:|--------------------:|
-|   97705 |    54732 |    120992 |         4452 |             2630 | 1.48155e+07 |      8.74836e+07 | 2.79558e+08 |      5.52484e+06 | 225535           |         4.82951e+08 |
-|   67705 |    67122 |    160623 |         5955 |             2927 | 9.16001e+06 |      3.70793e+07 | 2.32486e+08 | 438220           |      3.57988e+06 |         2.94619e+08 |
-|   78176 |    59482 |    133398 |         3540 |             1829 | 1.40537e+07 |      7.27695e+07 | 2.60549e+08 |      5.18706e+06 | 118977           |         4.54773e+08 |
-|   17448 |    77737 |    218467 |         5412 |              951 | 4.35147e+06 |      1.51483e+07 | 1.59417e+08 | 641919           |   5825           |         1.38745e+08 |
-|   62012 |    64725 |    111483 |         2630 |             1573 | 1.22767e+07 |      8.4055e+07  | 2.46019e+08 |      4.77908e+06 | 105932           |         3.95402e+08 |
+| position   |   kills |   deaths |   assists |   firstblood |   firstbloodkill |         dpm |   damagetotowers |   totalgold |      minionkills |     monsterkills |   damagetochampions |
+|:-----------|--------:|---------:|----------:|-------------:|-----------------:|------------:|-----------------:|------------:|-----------------:|-----------------:|--------------------:|
+| bot        |   97705 |    54732 |    120992 |         4452 |             2630 | 1.48155e+07 |      8.74836e+07 | 2.79558e+08 |      5.52484e+06 | 225535           |         4.82951e+08 |
+| jng        |   67705 |    67122 |    160623 |         5955 |             2927 | 9.16001e+06 |      3.70793e+07 | 2.32486e+08 | 438220           |      3.57988e+06 |         2.94619e+08 |
+| mid        |   78176 |    59482 |    133398 |         3540 |             1829 | 1.40537e+07 |      7.27695e+07 | 2.60549e+08 |      5.18706e+06 | 118977           |         4.54773e+08 |
+| sup        |   17448 |    77737 |    218467 |         5412 |              951 | 4.35147e+06 |      1.51483e+07 | 1.59417e+08 | 641919           |   5825           |         1.38745e+08 |
+| top        |   62012 |    64725 |    111483 |         2630 |             1573 | 1.22767e+07 |      8.4055e+07  | 2.46019e+08 |      4.77908e+06 | 105932           |         3.95402e+08 |
 
 <br>
 <br>
@@ -181,7 +181,16 @@ Test Statistic: TVD between distribution of position when damageshare is missing
 <br>
 <br>
 Below is the observed distribution of position when cells in ‘damageshare’ are and are not missing
-<br>
+
+|      |   dmgs_missing = True |   dmgs_missing = False |
+|:-----|----------------------:|-----------------------:|
+| top  |                   0.2 |                      0 |
+| jng  |                   0.2 |                      0 |
+| mid  |                   0.2 |                      0 |
+| bot  |                   0.2 |                      0 |
+| sup  |                   0.2 |                      0 |
+| team |                   0   |                      1 |
+
 <br>
 After calculating the TVD between these two distributions, we get an observed TVD of 1.0. After conducting permutation tests in which missing cells were randomized based on position, under the null that the distribution of the missing values IS NOT related to role, and plotting the histogram of the test TVDs, the observed p-value is 0. Below is the empirical distribution of the generated test TVDs under the null.
 <br>
@@ -201,9 +210,23 @@ Alternative Hypothesis: The distribution of ‘teamname’ when ‘damageshare�
 Test Statistic: TVD between distribution of teamname when damageshare is missing and not missing
 <br>
 <br>
-Below are the two distributions of values in ‘teamname’ when ‘damageshare’ is missing. 
+Below are the two distributions of values in ‘teamname’ when ‘damageshare’ is missing. To reduce clutter, only the first 10 team names are shown. 
+
+|                         |   dmgs_missing = True |   dmgs_missing = False |
+|:------------------------|----------------------:|-----------------------:|
+| IziDream                |            0.00317829 |             0.00317829 |
+| Team Valiant            |            0.00232065 |             0.00232065 |
+| Esprit Shōnen           |            0.00383412 |             0.00383412 |
+| Skillcamp               |            0.00262335 |             0.00262335 |
+| Karmine Corp Blue Stars |            0.00211886 |             0.00211886 |
+| Project Conquerors      |            0.00373323 |             0.00373323 |
+| Zerance                 |            0.0023711  |             0.0023711  |
+| Lille Esport            |            0.00206841 |             0.00206841 |
+| Weibo Gaming            |            0.00756735 |             0.00756735 |
+| Oh My God               |            0.00161437 |             0.00161437 |
+
 <br>
-<br>
+
 After producing 3000 test statistics of permutations, the observed tvd of 0.0 has a p-value of 1.0, meaning that all test TVDs were actually greater than the actual TVD! Below is the distribution of the test TVDs compared to the observed TVD.
 <br>
 <br>
@@ -218,6 +241,23 @@ An important part of analyzing datasets for patterns is the ability to conduct h
 <br>
 You may wonder why this metric has deaths as its denominator. That is because deaths very punishingly sets a player back a great deal of time, as respawning has a long delay. Deaths hold back players from progressing, making it an important task for players to defeat other players. Setting enemies back time can place them at a great disadvantage in a game where it’s a constant race to scale your champion’s power.
 <br>
+<br>
+Here are the first 10 rows of the Dataframe used in this test to demonstrate that KDA column was added
+
+| gameid           | position   | side   |   kills |   assists |   deaths |       kda |
+|:-----------------|:-----------|:-------|--------:|----------:|---------:|----------:|
+| LOLTMNT03_179647 | top        | Blue   |       1 |         1 |        2 |  1        |
+| LOLTMNT03_179647 | jng        | Blue   |       0 |         1 |        3 |  0.333333 |
+| LOLTMNT03_179647 | mid        | Blue   |       1 |         0 |        2 |  0.5      |
+| LOLTMNT03_179647 | bot        | Blue   |       1 |         1 |        3 |  0.666667 |
+| LOLTMNT03_179647 | sup        | Blue   |       0 |         2 |        3 |  0.666667 |
+| LOLTMNT03_179647 | top        | Red    |       3 |         4 |        2 |  3.5      |
+| LOLTMNT03_179647 | jng        | Red    |       1 |        10 |        1 | 11        |
+| LOLTMNT03_179647 | mid        | Red    |       1 |         8 |        1 |  9        |
+| LOLTMNT03_179647 | bot        | Red    |       8 |         3 |        1 | 11        |
+| LOLTMNT03_179647 | sup        | Red    |       0 |        11 |        1 | 11        |
+
+
 <br>
 Here I must preface that KDA is not an overall metric of performance in League. Rather, KDA is a metric that captures mainly a player’s combat performance against the enemy players. It is important to measure this because the game builds itself around player versus player combat. Unfortunately this stat is not deterministic of a player’s overall performance because the roles / positions turn out to have such a significant impact on a playstyle and thus one’s stats - that many other metrics have just as much importance in determining what role a player is.
 <br>
