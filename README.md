@@ -15,7 +15,7 @@ League of Legends, abbreviated as LOL, is an online multiplayer teamwork player 
 This analysis uses **Oracle's Elixir** dataset of professional match data for League of Legends in 2025. Included in this file are many statistics from individual matches and each match's individual players from Esport matches throughout 2025. 
 <br>
 <br>
-This dataset captures essentially all of the numerical and recordable data that can be obtained from LOL matches, providing both information about teams as a whole and individual player statistics, which will prove to be very deterministic about what role that player took on in a match. An essential dynamic to MOBA's is the presence of role based performances. Instead of other genres of games where the performance of a player can be quite similar across the board, asides from executing team formations or decisions, LOL's role dynamic leads to each player on a team fulfilling a very defined position. While some roles share similarities, such as Mid Laners and ADC Bot roles eventually scaling their power to be PVP focused, others such as Jungle are encouraged to damage monsters outside of the game's 3 main lanes. At a basic level, there are positions that play more passively than others, differentiating the "carries," those entrusted to lead the team by power, and the supports. However, stats often overlap in importance. All roles have some involvement and expectation to engage in PVP against the enemy team. For this reason, stats like `kills`, deaths, assists can vary across game to game from player to player. <br>
+This dataset captures essentially all of the numerical and recordable data that can be obtained from LOL matches, providing both information about teams as a whole and individual player statistics, which will prove to be very deterministic about what role that player took on in a match. An essential dynamic to MOBA's is the presence of role based performances. Instead of other genres of games where the performance of a player can be quite similar across the board, asides from executing team formations or decisions, LOL's role dynamic leads to each player on a team fulfilling a very defined position. While some roles share similarities, such as Mid Laners and ADC Bot roles eventually scaling their power to be PVP focused, others such as Jungle are encouraged to damage monsters outside of the game's 3 main lanes. At a basic level, there are positions that play more passively than others, differentiating the "carries," those entrusted to lead the team by power, and the supports. However, stats often overlap in importance. All roles have some involvement and expectation to engage in PVP against the enemy team. For this reason, stats like `kills`, `deaths`, `assists` can vary across game to game from player to player. <br>
 <br>
 For this analysis, the central question I am interested in is <b>Just how defined are the positions in League of Legends by stats?</b> To explore this question, I isolate many crucial statistics that define a player's performance as well as differentiate them from others. Exploring this question requires us to understand the patterns in individual stats and their correlations to others. In the conclusion of this analysis, I construct a predictive model that attempts to classify a player's position by just their match statistics. The performance of this Prediction Model may or may not support the idea that there actually are correlations between positions and statistics.
 <br>
@@ -175,7 +175,7 @@ A common way to observe the statistics of players is by aggregating every player
 
 <br>
 <br>
-By taking the sum of all stats across every position using a groupby() followed by a sum aggregation function, we can see some significant differences in the overall stats of each position. One for example, is that the ‘support’ position has a significantly lower amount of kills compared to every other position, but a significantly higher amount of assists. Support also has a staggeringly low amount of monster `kills`, less than 6000 when the jungle position has nearly 3.6 million!
+By taking the sum of all stats across every position using a groupby() followed by a sum aggregation function, we can see some significant differences in the overall stats of each position. One for example, is that the ‘support’ position has a significantly lower amount of kills compared to every other position, but a significantly higher amount of `assists`. Support also has a staggeringly low amount of monster `kills`, less than 6000 when the jungle position has nearly 3.6 million!
 <br>
 <br>
 The many observations to be made from this table make it likely evidence that positions do have a significantly different playstyles, and thus stats, from each other.
@@ -281,10 +281,10 @@ Because the p-value of the observed statistic is > 0.05, we fail to reject the n
  
 ## Hypothesis Testing
 
-An important part of analyzing datasets for patterns is the ability to conduct hypothesis tests to validate claims about the data. For this section of the analysis, I will conduct a Hypothesis Test on an aggregate statistic - kill death assist ratio (KDA). KDA is a metric calculated by looking at a player’s specific (`kills` + assists) / deaths in a match. KDA is an important metric because it represents an individual player’s involvement in PVP combat in a specific match. This is especially important because League is a team based game where one’s combat performance against the other team’s players is a critical aspect to ensuring victory. 
+An important part of analyzing datasets for patterns is the ability to conduct hypothesis tests to validate claims about the data. For this section of the analysis, I will conduct a Hypothesis Test on an aggregate statistic - kill death assist ratio (KDA). `KDA` is a metric calculated by looking at a player’s specific (`kills` + `assists`) / `deaths` in a match. KDA is an important metric because it represents an individual player’s involvement in PVP combat in a specific match. This is especially important because League is a team based game where one’s combat performance against the other team’s players is a critical aspect to ensuring victory. 
 <br>
 <br>
-You may wonder why this metric has deaths as its denominator. That is because deaths very punishingly sets a player back a great deal of time, as respawning has a long delay. Deaths hold back players from progressing, making it an important task for players to defeat other players. Setting enemies back time can place them at a great disadvantage in a game where it’s a constant race to scale your champion’s power.
+You may wonder why this metric has `deaths` as its denominator. That is because `deaths` very punishingly sets a player back a great deal of time, as respawning has a long delay. Deaths hold back players from progressing, making it an important task for players to defeat other players. Setting enemies back time can place them at a great disadvantage in a game where it’s a constant race to scale your champion’s power.
 <br>
 <br>
 Here are the first 10 rows of the Dataframe used in this test to demonstrate that KDA column was added
@@ -408,19 +408,19 @@ Something I recognized about this model is that the ‘best’ chosen n_estimato
 When creating a prediction model, it is important to address how different groups yield different performances from the model. In this section, I will assess if my model is fair among two specific groups in the dataset. For this Fairness Analysis, I asked the question: does my model perform worse for players who have less than or equal to 10 kills than it does for players who have more than 10 kills? To answer this question, I used a permutation test with a significance value level of 0.05.
 <br>
 <br>
-The group x represents the players who have less than or equal to 10 kills, and group y represents players with more than 10 kills in a match. The evaluation metric compared between these two groups is accuracy subtracting group x’s accuracy from group y.
+The group x represents the players who have less than or equal to 10 kills, and group y represents players with more than 10 kills in a match. The evaluation metric compared between these two groups is accuracy subtracting group `x’s` accuracy from group `y`.
 <br>
 <br>
 The Hypotheses for this test are:
 <br>
 <br>
-Null Hypothesis: The accuracy of the model for player positions when that player had less than or equal to 10 kills in a match is equal to the accuracy of the model for players who had over 10 kills in a match
+**Null Hypothesis:** The accuracy of the model for player positions when that player had less than or equal to 10 kills in a match is equal to the accuracy of the model for players who had over 10 kills in a match
 <br>
 <br>
-Alternative Hypothesis: The accuracy of the model for player positions when that player had less than or equal to 10 kills in a match is LESS THAN to the accuracy of the model for players who had over 10 kills in a match
+**Alternative Hypothesis:** The accuracy of the model for player positions when that player had less than or equal to 10 kills in a match is LESS THAN to the accuracy of the model for players who had over 10 kills in a match
 <br>
 <br>
-Test Statistic: difference in accuracy between players who have less than or equal to 10 kills and players who have over 10 kills
+**Test Statistic:** difference in accuracy between players who have less than or equal to 10 kills and players who have over 10 kills
 
 <iframe
  src = "assets/fairness.html"
