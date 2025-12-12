@@ -1,9 +1,9 @@
-# Analyzing What Defines each League of Legends Position
+# Position Analysis In League of Legends
 
 By Zachary Loo (zloo@ucsd.edu)
 ---
 ## Abstract
-Analyzing What Defines each League of Legends Position is a data science project conducted at UCSD. It walks through many important stages of a Dataset Analysis, starting with Cleaning and Exploratory Data Analysis, Missingness Assessments, Hypothesis Testing, and constructing a Prediction Model based on the available statistics. This project focuses on the presence of distinguished roles and just how much their statistics define them in the playing field. 
+Position Analysis In League of Legends is a data science analysis project conducted at UCSD. It walks through many important stages of a Dataset Analysis, starting with Cleaning and Exploratory Data Analysis, Missingness Assessments, Hypothesis Testing, and constructing a Prediction Model based on the available statistics. This project focuses on the presence of distinguished roles and just how much their statistics define them in the playing field. 
 ---
 
 ## Introduction
